@@ -1,1 +1,14 @@
-/* You can add global styles to this file, and also import other style files */
+/* Global styles */
+@use 'bootstrap/scss/bootstrap' as *;
+
+:root {
+  --app-bg: #f6f8fb;
+  --app-primary: #0d6efd;
+  --app-text: #1f2633;
+  --app-muted: #6c757d;
+}
+
+body {
+  background: var(--app-bg);
+  color: var(--app-text);
+}

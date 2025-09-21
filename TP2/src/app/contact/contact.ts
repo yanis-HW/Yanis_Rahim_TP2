@@ -1,70 +1,106 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { Component, OnInit, ChangeDetectionStrategy, DestroyRef, inject } from '@angular/core';
+import {
+  FormGroup,
+  Validators,
+  ReactiveFormsModule,
+  NonNullableFormBuilder,
+  FormControl,
+} from '@angular/forms';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { ContactDataService, ContactData } from '../services/contact-data.service';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-contact',
   imports: [ReactiveFormsModule, CommonModule],
   templateUrl: './contact.html',
   styleUrl: './contact.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Contact implements OnInit {
-  contactForm: FormGroup;
+  contactForm: FormGroup<ContactFormModel>;
+
+  private readonly destroyRef = inject(DestroyRef);
 
   constructor(
-    private fb: FormBuilder,
+    private fb: NonNullableFormBuilder,
     private router: Router,
     private contactDataService: ContactDataService
   ) {
     this.contactForm = this.fb.group({
-      prenom: ['', Validators.required],
-      nom: ['', Validators.required],
-      age: [''],
-      hide: [false],
-      email: ['', [Validators.required, Validators.email]],
-      commentaire: ['', Validators.required],
+      prenom: this.fb.control('', { validators: [Validators.required] }),
+      nom: this.fb.control('', { validators: [Validators.required] }),
+      age: new FormControl<number | null>(null),
+      hide: this.fb.control(false),
+      email: this.fb.control('', { validators: [Validators.required, Validators.email] }),
+      commentaire: this.fb.control('', { validators: [Validators.required] }),
     });
   }
 
   ngOnInit() {
     // Observer les changements de la checkbox 'hide'
-    this.contactForm.get('hide')?.valueChanges.subscribe((hideValue) => {
-      const emailControl = this.contactForm.get('email');
-
-      if (hideValue) {
-        // Si hide est coché, on retire les validateurs et on vide le champ
-        emailControl?.clearValidators();
-        emailControl?.setValue('');
-      } else {
-        // Si hide n'est pas coché, on remet les validateurs
-        emailControl?.setValidators([Validators.required, Validators.email]);
-      }
-
-      emailControl?.updateValueAndValidity();
-    });
+    this.contactForm
+      .get('hide')
+      ?.valueChanges.pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe((hideValue) => {
+        const emailControl = this.contactForm.controls.email;
+        if (hideValue) {
+          emailControl.disable({ emitEvent: false });
+          emailControl.reset('');
+        } else {
+          emailControl.enable({ emitEvent: false });
+        }
+      });
   }
 
   get isEmailHidden(): boolean {
-    return this.contactForm.get('hide')?.value;
+    return this.contactForm.controls.hide.value;
+  }
+
+  // Convenience getters to simplify template access and keep strong typing
+  get prenomCtrl() {
+    return this.contactForm.controls.prenom;
+  }
+  get nomCtrl() {
+    return this.contactForm.controls.nom;
+  }
+  get ageCtrl() {
+    return this.contactForm.controls.age;
+  }
+  get emailCtrl() {
+    return this.contactForm.controls.email;
+  }
+  get commentaireCtrl() {
+    return this.contactForm.controls.commentaire;
   }
 
   onSubmit() {
-    if (this.contactForm.valid) {
-      const formValue = this.contactForm.value;
-      const contactData: ContactData = {
-        prenom: formValue.prenom,
-        nom: formValue.nom,
-        age: formValue.age,
-        email: formValue.hide ? undefined : formValue.email,
-        commentaire: formValue.commentaire,
-        dateSoumission: new Date(),
-      };
+    this.contactForm.markAllAsTouched();
+    if (!this.contactForm.valid) return;
 
-      this.contactDataService.saveContactData(contactData);
-      alert('Le formulaire est valide');
-      this.router.navigate(['/accueil']);
-    }
+    const formValue = this.contactForm.getRawValue();
+    const contactData: ContactData = {
+      prenom: formValue.prenom,
+      nom: formValue.nom,
+      age: formValue.age == null ? undefined : String(formValue.age),
+      email: formValue.hide ? undefined : formValue.email,
+      commentaire: formValue.commentaire,
+      dateSoumission: new Date(),
+    };
+
+    this.contactDataService.saveContactData(contactData);
+    alert('Le formulaire est valide');
+    this.router.navigate(['/accueil']);
   }
+}
+
+// Typed form model
+interface ContactFormModel {
+  prenom: FormControl<string>;
+  nom: FormControl<string>;
+  age: FormControl<number | null>;
+  hide: FormControl<boolean>;
+  email: FormControl<string>;
+  commentaire: FormControl<string>;
 }
