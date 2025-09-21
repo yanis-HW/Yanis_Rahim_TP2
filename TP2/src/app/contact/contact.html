@@ -1,110 +1,106 @@
-<div style="display: flex; justify-content: center; padding: 20px">
-  <form [formGroup]="contactForm" (ngSubmit)="onSubmit()" style="max-width: 400px; width: 100%">
-    <h2 style="text-align: center; margin-bottom: 20px">Formulaire de Contact</h2>
+<div class="contact-wrap container py-4">
+  <form [formGroup]="contactForm" (ngSubmit)="onSubmit()" class="contact-card mx-auto" novalidate>
+    <h2 class="text-center mb-3 fw-semibold">Formulaire de Contact</h2>
 
     <!-- Prénom -->
-    <div style="margin-bottom: 15px">
-      <label for="prenom">Prénom *</label>
+    <div class="mb-3">
+      <label for="prenom" class="form-label">Prénom *</label>
       <input
         type="text"
         id="prenom"
         formControlName="prenom"
-        style="width: 100%; padding: 8px; margin-top: 5px"
+        class="form-control"
+        [class.is-invalid]="prenomCtrl.invalid && prenomCtrl.touched"
+        [attr.aria-invalid]="prenomCtrl.invalid ? true : null"
+        aria-describedby="prenom-error"
       />
-      <div
-        style="color: red; font-size: 12px; margin-top: 5px"
-        *ngIf="contactForm.get('prenom')?.invalid && contactForm.get('prenom')?.touched"
-      >
+      <div class="invalid-msg" id="prenom-error" *ngIf="prenomCtrl.invalid && prenomCtrl.touched">
         Le prénom est requis
       </div>
     </div>
 
     <!-- Nom -->
-    <div style="margin-bottom: 15px">
-      <label for="nom">Nom *</label>
+    <div class="mb-3">
+      <label for="nom" class="form-label">Nom *</label>
       <input
         type="text"
         id="nom"
         formControlName="nom"
-        style="width: 100%; padding: 8px; margin-top: 5px"
+        class="form-control"
+        [class.is-invalid]="nomCtrl.invalid && nomCtrl.touched"
+        [attr.aria-invalid]="nomCtrl.invalid ? true : null"
+        aria-describedby="nom-error"
       />
-      <div
-        style="color: red; font-size: 12px; margin-top: 5px"
-        *ngIf="contactForm.get('nom')?.invalid && contactForm.get('nom')?.touched"
-      >
+      <div class="invalid-msg" id="nom-error" *ngIf="nomCtrl.invalid && nomCtrl.touched">
         Le nom est requis
       </div>
     </div>
 
     <!-- Âge -->
-    <div style="margin-bottom: 15px">
-      <label for="age">Âge</label>
-      <input
-        type="number"
-        id="age"
-        formControlName="age"
-        style="width: 100%; padding: 8px; margin-top: 5px"
-      />
+    <div class="mb-3">
+      <label for="age" class="form-label">Âge</label>
+      <input type="number" id="age" formControlName="age" class="form-control" />
     </div>
 
     <!-- Checkbox Hide -->
-    <div style="margin-bottom: 15px">
-      <label style="display: flex; align-items: center">
-        <input type="checkbox" formControlName="hide" style="margin-right: 8px" />
-        Hide (cacher le champ Email)
-      </label>
+    <div class="form-check form-switch mb-3">
+      <input
+        class="form-check-input"
+        type="checkbox"
+        role="switch"
+        id="hideEmail"
+        formControlName="hide"
+      />
+      <label class="form-check-label" for="hideEmail">Cacher le champ Email</label>
     </div>
 
     <!-- Email -->
-    <div style="margin-bottom: 15px" *ngIf="!isEmailHidden">
-      <label for="email">Email *</label>
+    <div class="mb-3" *ngIf="!isEmailHidden">
+      <label for="email" class="form-label">Email *</label>
       <input
         type="email"
         id="email"
         formControlName="email"
-        style="width: 100%; padding: 8px; margin-top: 5px"
+        class="form-control"
+        [class.is-invalid]="emailCtrl.invalid && emailCtrl.touched"
+        [attr.aria-invalid]="emailCtrl.invalid ? true : null"
+        aria-describedby="email-error"
+        autocomplete="email"
+        inputmode="email"
       />
-      <div
-        style="color: red; font-size: 12px; margin-top: 5px"
-        *ngIf="contactForm.get('email')?.invalid && contactForm.get('email')?.touched"
-      >
+      <div class="invalid-msg" id="email-error" *ngIf="emailCtrl.invalid && emailCtrl.touched">
         <span *ngIf="contactForm.get('email')?.errors?.['required']">L'email est requis</span>
         <span *ngIf="contactForm.get('email')?.errors?.['email']">L'email doit contenir un @</span>
       </div>
     </div>
 
     <!-- Commentaire -->
-    <div style="margin-bottom: 20px">
-      <label for="commentaire">Commentaire *</label>
+    <div class="mb-4">
+      <label for="commentaire" class="form-label">Commentaire *</label>
       <textarea
         id="commentaire"
         formControlName="commentaire"
         rows="4"
-        style="width: 100%; padding: 8px; margin-top: 5px; resize: vertical"
+        class="form-control"
+        [class.is-invalid]="commentaireCtrl.invalid && commentaireCtrl.touched"
+        [attr.aria-invalid]="commentaireCtrl.invalid ? true : null"
+        aria-describedby="commentaire-error"
       ></textarea>
       <div
-        style="color: red; font-size: 12px; margin-top: 5px"
-        *ngIf="contactForm.get('commentaire')?.invalid && contactForm.get('commentaire')?.touched"
+        class="invalid-msg"
+        id="commentaire-error"
+        *ngIf="commentaireCtrl.invalid && commentaireCtrl.touched"
       >
         Le commentaire est requis
       </div>
     </div>
 
     <!-- Bouton Envoyer -->
-    <div style="text-align: center">
+    <div class="text-center">
       <button
         type="submit"
+        class="btn btn-primary btn-lg submit-btn"
         [disabled]="!contactForm.valid"
-        style="
-          padding: 10px 20px;
-          background-color: #007bff;
-          color: white;
-          border: none;
-          border-radius: 4px;
-          cursor: pointer;
-        "
-        [style.background-color]="contactForm.valid ? '#007bff' : '#ccc'"
-        [style.cursor]="contactForm.valid ? 'pointer' : 'not-allowed'"
       >
         Envoyer
       </button>

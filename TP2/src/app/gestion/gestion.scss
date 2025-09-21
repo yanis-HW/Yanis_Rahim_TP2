@@ -1,0 +1,151 @@
+/* Component host baseline */
+:host {
+  display: block;
+  padding-block: 0.25rem;
+}
+
+/* Center the page content both horizontally and vertically */
+.gestion-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100dvh;
+  padding: 24px;
+  animation: fade-in 320ms ease-out;
+}
+
+.gestion-content {
+  max-width: 720px;
+  width: 100%;
+}
+
+.gestion-title {
+  text-align: center;
+  margin-bottom: 28px;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+  position: relative;
+}
+
+.gestion-title::after {
+  content: '';
+  display: block;
+  width: 72px;
+  height: 4px;
+  margin: 10px auto 0;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--app-primary), #6ea8fe);
+  opacity: 0.9;
+}
+
+.gestion-card {
+  background: rgba(255, 255, 255, 0.9);
+  padding: 22px 24px;
+  border-radius: 12px;
+  border: 1px solid #e9ecef;
+  box-shadow: 0 4px 16px rgba(31, 38, 51, 0.06);
+  backdrop-filter: blur(6px);
+  transition: transform 180ms ease, box-shadow 200ms ease, border-color 200ms ease;
+  will-change: transform, box-shadow;
+  animation: fade-in-up 360ms ease-out;
+}
+
+.gestion-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px rgba(13, 110, 253, 0.08), 0 6px 18px rgba(31, 38, 51, 0.08);
+  border-color: #dee2e6;
+}
+
+.gestion-subtitle {
+  margin-top: 0;
+  margin-bottom: 18px;
+  color: #2a2f3a;
+  font-weight: 600;
+}
+
+.gestion-field {
+  margin-bottom: 14px;
+}
+
+.gestion-field strong {
+  display: inline-block;
+  margin-right: 8px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: rgba(13, 110, 253, 0.08);
+  color: var(--app-primary);
+  font-weight: 600;
+}
+
+.gestion-comment {
+  margin-top: 6px;
+  padding: 12px 14px;
+  background: linear-gradient(180deg, #ffffff, #fbfdff);
+  border-radius: 8px;
+  border: 1px solid #e3e7ed;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  transition: border-color 160ms ease, background-color 160ms ease;
+  border-left: 3px solid var(--app-primary);
+}
+
+.gestion-card:hover .gestion-comment {
+  border-color: #d4dae3;
+}
+
+.gestion-meta {
+  margin-bottom: 0;
+  color: var(--app-muted);
+  font-size: 0.925rem;
+}
+
+.gestion-empty {
+  text-align: center;
+  padding: 40px;
+  background-color: #f8d7da;
+  color: #842029; /* Bootstrap danger-900-ish */
+  border-radius: 12px;
+  border: 1px solid #f1aeb5;
+  box-shadow: 0 4px 16px rgba(220, 53, 69, 0.08);
+  animation: fade-in-up 340ms ease-out;
+
+  h3 {
+    margin: 0;
+    font-weight: 700;
+  }
+
+  p {
+    margin: 10px 0 0 0;
+  }
+}
+
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gestion-container,
+  .gestion-card,
+  .gestion-empty {
+    animation: none;
+  }
+
+  .gestion-card {
+    transition: none;
+  }
+}
