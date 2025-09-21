@@ -1,1 +1,113 @@
-<p>contact works!</p>
+<div style="display: flex; justify-content: center; padding: 20px">
+  <form [formGroup]="contactForm" (ngSubmit)="onSubmit()" style="max-width: 400px; width: 100%">
+    <h2 style="text-align: center; margin-bottom: 20px">Formulaire de Contact</h2>
+
+    <!-- Prénom -->
+    <div style="margin-bottom: 15px">
+      <label for="prenom">Prénom *</label>
+      <input
+        type="text"
+        id="prenom"
+        formControlName="prenom"
+        style="width: 100%; padding: 8px; margin-top: 5px"
+      />
+      <div
+        style="color: red; font-size: 12px; margin-top: 5px"
+        *ngIf="contactForm.get('prenom')?.invalid && contactForm.get('prenom')?.touched"
+      >
+        Le prénom est requis
+      </div>
+    </div>
+
+    <!-- Nom -->
+    <div style="margin-bottom: 15px">
+      <label for="nom">Nom *</label>
+      <input
+        type="text"
+        id="nom"
+        formControlName="nom"
+        style="width: 100%; padding: 8px; margin-top: 5px"
+      />
+      <div
+        style="color: red; font-size: 12px; margin-top: 5px"
+        *ngIf="contactForm.get('nom')?.invalid && contactForm.get('nom')?.touched"
+      >
+        Le nom est requis
+      </div>
+    </div>
+
+    <!-- Âge -->
+    <div style="margin-bottom: 15px">
+      <label for="age">Âge</label>
+      <input
+        type="number"
+        id="age"
+        formControlName="age"
+        style="width: 100%; padding: 8px; margin-top: 5px"
+      />
+    </div>
+
+    <!-- Checkbox Hide -->
+    <div style="margin-bottom: 15px">
+      <label style="display: flex; align-items: center">
+        <input type="checkbox" formControlName="hide" style="margin-right: 8px" />
+        Hide (cacher le champ Email)
+      </label>
+    </div>
+
+    <!-- Email -->
+    <div style="margin-bottom: 15px" *ngIf="!isEmailHidden">
+      <label for="email">Email *</label>
+      <input
+        type="email"
+        id="email"
+        formControlName="email"
+        style="width: 100%; padding: 8px; margin-top: 5px"
+      />
+      <div
+        style="color: red; font-size: 12px; margin-top: 5px"
+        *ngIf="contactForm.get('email')?.invalid && contactForm.get('email')?.touched"
+      >
+        <span *ngIf="contactForm.get('email')?.errors?.['required']">L'email est requis</span>
+        <span *ngIf="contactForm.get('email')?.errors?.['email']">L'email doit contenir un @</span>
+      </div>
+    </div>
+
+    <!-- Commentaire -->
+    <div style="margin-bottom: 20px">
+      <label for="commentaire">Commentaire *</label>
+      <textarea
+        id="commentaire"
+        formControlName="commentaire"
+        rows="4"
+        style="width: 100%; padding: 8px; margin-top: 5px; resize: vertical"
+      ></textarea>
+      <div
+        style="color: red; font-size: 12px; margin-top: 5px"
+        *ngIf="contactForm.get('commentaire')?.invalid && contactForm.get('commentaire')?.touched"
+      >
+        Le commentaire est requis
+      </div>
+    </div>
+
+    <!-- Bouton Envoyer -->
+    <div style="text-align: center">
+      <button
+        type="submit"
+        [disabled]="!contactForm.valid"
+        style="
+          padding: 10px 20px;
+          background-color: #007bff;
+          color: white;
+          border: none;
+          border-radius: 4px;
+          cursor: pointer;
+        "
+        [style.background-color]="contactForm.valid ? '#007bff' : '#ccc'"
+        [style.cursor]="contactForm.valid ? 'pointer' : 'not-allowed'"
+      >
+        Envoyer
+      </button>
+    </div>
+  </form>
+</div>
