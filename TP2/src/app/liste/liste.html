@@ -1,28 +1,29 @@
 <div class="liste-container">
   <!-- Liste des films centrée -->
   <div class="films-liste">
-    <h2>Liste des Films</h2>
+    <h2>Films</h2>
     <ul class="films-links">
-      <li *ngFor="let film of films">
-        <a
-          href="#"
-          (click)="selectionnerFilm(film); $event.preventDefault()"
+      <li *ngFor="let film of films; trackBy: trackByFilmId">
+        <button
+          type="button"
+          (click)="selectionnerFilm(film)"
           [class.selected]="filmSelectionne?.id === film.id"
+          aria-pressed="{{ filmSelectionne?.id === film.id }}"
         >
           {{ film.titre }}
-        </a>
+        </button>
       </li>
     </ul>
   </div>
 
   <!-- Détails du film sélectionné -->
-  <div class="film-details" *ngIf="filmSelectionne">
-    <h3>{{ filmSelectionne!.titre }}</h3>
+  <div class="film-details" *ngIf="filmSelectionne as film">
+    <h3>{{ film.titre }}</h3>
     <div class="film-poster">
       <img
-        [src]="filmSelectionne!.affiche"
-        [alt]="'Affiche de ' + filmSelectionne!.titre"
-        onerror="this.src='https://via.placeholder.com/300x450/cccccc/666666?text=Affiche+non+disponible'"
+        [src]="film.affiche"
+        [alt]="'Affiche de ' + film.titre"
+        (error)="onPosterError($event)"
       />
     </div>
   </div>
