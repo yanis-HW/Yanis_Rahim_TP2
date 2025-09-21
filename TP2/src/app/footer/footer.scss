@@ -1,12 +1,55 @@
-.footer {
-  position: relative;
-  width: 100%;
-  padding: 1rem 0;
-  background: #527;
+:host {
+  display: block;
+}
+
+.app-footer {
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  backdrop-filter: saturate(140%) blur(8px);
+  background: linear-gradient(
+      90deg,
+      rgba(0, 191, 165, 0.85) 0%,
+      rgba(0, 229, 255, 0.85) 50%,
+      rgba(124, 77, 255, 0.85) 100%
+    )
+    border-box;
+  background-size: 200% 200%;
+  animation: footerGradient 22s ease infinite;
   color: #fff;
 }
 
-a {
-  position: absolute;
-  right: 1rem;
+.footer-shell {
+  max-width: 1100px;
+  margin: 0 auto;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+}
+
+.footer-left .muted {
+  opacity: 0.85;
+}
+
+@keyframes footerGradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Reduce motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .app-footer {
+    animation: none !important;
+  }
+  .footer-nav a,
+  .footer-nav a::after {
+    transition: none !important;
+  }
 }

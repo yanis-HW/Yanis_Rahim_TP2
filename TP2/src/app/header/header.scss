@@ -1,0 +1,137 @@
+:host {
+  display: block;
+}
+
+.app-header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  backdrop-filter: saturate(140%) blur(8px);
+  background: linear-gradient(
+      90deg,
+      rgba(124, 77, 255, 0.85) 0%,
+      rgba(0, 229, 255, 0.85) 50%,
+      rgba(0, 191, 165, 0.85) 100%
+    )
+    border-box;
+  background-size: 200% 200%;
+  animation: headerGradient 18s ease infinite;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+@keyframes headerGradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.nav-shell {
+  max-width: 1100px;
+  margin: 0 auto;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: #fff;
+  text-decoration: none;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+}
+
+.brand-logo {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: radial-gradient(120% 120% at 10% 10%, #7c4dff 0%, #00e5ff 70%, #00bfa5 100%);
+  color: #0c0c0c;
+  font-size: 16px;
+  transform: rotate(-8deg);
+  transition: transform 300ms ease;
+}
+
+.brand:hover .brand-logo {
+  transform: rotate(0deg) scale(1.05);
+}
+
+.brand-text {
+  font-size: 18px;
+}
+
+/* Desktop layout */
+.nav-list {
+  list-style: none;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-list a {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  padding: 10px 14px;
+  color: #e8e8e8;
+  text-decoration: none;
+  border-radius: 10px;
+  transition: color 180ms ease, background 180ms ease, transform 120ms ease;
+}
+
+.nav-list a::after {
+  content: '';
+  position: absolute;
+  left: 12px;
+  right: 12px;
+  bottom: 6px;
+  height: 2px;
+  background: linear-gradient(90deg, #7c4dff, #00e5ff);
+  opacity: 0;
+  transform: translateY(4px);
+  transition: opacity 220ms ease, transform 220ms ease;
+  border-radius: 2px;
+}
+
+.nav-list a:hover {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.nav-list a:hover::after,
+.nav-list a.active::after {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.nav-list a.active {
+  color: #ffffff;
+}
+
+/* Reduce motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .app-header,
+  .brand-logo,
+  .nav-list a,
+  .nav-list a::after,
+  .nav-list {
+    transition: none !important;
+  }
+  .app-header {
+    animation: none !important;
+  }
+}

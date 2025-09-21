@@ -1,1 +1,25 @@
-/* You can add global styles to this file, and also import other style files */
+/* Global layout resets */
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0; /* remove default browser spacing */
+}
+
+/* Sticky footer layout: header + main + footer */
+app-root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1 0 auto;
+}
+
+app-header,
+app-footer {
+  flex: 0 0 auto;
+}

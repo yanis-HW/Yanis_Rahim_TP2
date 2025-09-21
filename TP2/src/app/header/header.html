@@ -1,9 +1,23 @@
-<header>
-  <nav class="navbar">
-    <ul>
-      <li><a routerLink="/accueil">Accueil</a></li>
-      <li><a routerLink="/liste">Liste</a></li>
-      <li><a routerLink="/gestion">Gestion</a></li>
+<header class="app-header" role="banner">
+  <nav class="nav-shell" role="navigation" aria-label="Primary">
+    <a class="brand" routerLink="/accueil">
+      <span class="brand-logo" aria-hidden="true">⚡</span>
+      <span class="brand-text">TP2</span>
+    </a>
+
+    <ul class="nav-list">
+      <li>
+        <a routerLink="/accueil" routerLinkActive="active">Accueil</a>
+      </li>
+      <li>
+        <a routerLink="/liste" routerLinkActive="active">Liste</a>
+      </li>
+      <li>
+        <a routerLink="/contact" routerLinkActive="active">Contact</a>
+      </li>
+      <li>
+        <a routerLink="/gestion" routerLinkActive="active">Gestion</a>
+      </li>
     </ul>
   </nav>
 </header>
