@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { ContactDataService, ContactData } from '../services/contact-data.service';
 
 @Component({
   selector: 'app-contact',
@@ -12,7 +13,11 @@ import { CommonModule } from '@angular/common';
 export class Contact implements OnInit {
   contactForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private router: Router) {
+  constructor(
+    private fb: FormBuilder,
+    private router: Router,
+    private contactDataService: ContactDataService
+  ) {
     this.contactForm = this.fb.group({
       prenom: ['', Validators.required],
       nom: ['', Validators.required],
@@ -47,6 +52,17 @@ export class Contact implements OnInit {
 
   onSubmit() {
     if (this.contactForm.valid) {
+      const formValue = this.contactForm.value;
+      const contactData: ContactData = {
+        prenom: formValue.prenom,
+        nom: formValue.nom,
+        age: formValue.age,
+        email: formValue.hide ? undefined : formValue.email,
+        commentaire: formValue.commentaire,
+        dateSoumission: new Date(),
+      };
+
+      this.contactDataService.saveContactData(contactData);
       alert('Le formulaire est valide');
       this.router.navigate(['/accueil']);
     }

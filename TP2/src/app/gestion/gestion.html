@@ -1,1 +1,69 @@
-<p>gestion works!</p>
+<div style="display: flex; justify-content: center; padding: 20px">
+  <div style="max-width: 600px; width: 100%">
+    <h2 style="text-align: center; margin-bottom: 30px">Gestion - Dernier formulaire de contact</h2>
+
+    <!-- Affichage des données du formulaire si elles existent -->
+    <div
+      *ngIf="contactData; else noData"
+      style="
+        background-color: #f8f9fa;
+        padding: 20px;
+        border-radius: 8px;
+        border: 1px solid #dee2e6;
+      "
+    >
+      <h3 style="margin-top: 0; margin-bottom: 20px; color: #333">
+        Informations du dernier formulaire :
+      </h3>
+
+      <div style="margin-bottom: 15px"><strong>Prénom :</strong> {{ contactData.prenom }}</div>
+
+      <div style="margin-bottom: 15px"><strong>Nom :</strong> {{ contactData.nom }}</div>
+
+      <div style="margin-bottom: 15px" *ngIf="contactData.age">
+        <strong>Âge :</strong> {{ contactData.age }}
+      </div>
+
+      <div style="margin-bottom: 15px" *ngIf="contactData.email">
+        <strong>Email :</strong> {{ contactData.email }}
+      </div>
+
+      <div style="margin-bottom: 15px">
+        <strong>Commentaire :</strong>
+        <div
+          style="
+            margin-top: 5px;
+            padding: 10px;
+            background-color: white;
+            border-radius: 4px;
+            border: 1px solid #ced4da;
+          "
+        >
+          {{ contactData.commentaire }}
+        </div>
+      </div>
+
+      <div style="margin-bottom: 0; color: #6c757d; font-size: 14px">
+        <strong>Date de soumission :</strong>
+        {{ contactData.dateSoumission | date : 'dd/MM/yyyy à HH:mm' }}
+      </div>
+    </div>
+
+    <!-- Message 404 si aucune donnée -->
+    <ng-template #noData>
+      <div
+        style="
+          text-align: center;
+          padding: 40px;
+          background-color: #f8d7da;
+          color: #721c24;
+          border-radius: 8px;
+          border: 1px solid #f5c6cb;
+        "
+      >
+        <h3 style="margin: 0">404 - Not Found</h3>
+        <p style="margin: 10px 0 0 0">Aucun formulaire de contact n'a été envoyé pour le moment.</p>
+      </div>
+    </ng-template>
+  </div>
+</div>
