@@ -31,6 +31,36 @@
   opacity: 0.85;
 }
 
+.footer-right {
+  display: flex;
+  gap: 8px;
+}
+
+.btn-contact {
+  display: inline-flex;
+  align-items: center;
+  height: 36px;
+  padding: 0 14px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.14);
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  transition: background 160ms ease, transform 120ms ease, border-color 160ms ease;
+}
+
+.btn-contact:hover,
+.btn-contact:focus-visible {
+  background: rgba(255, 255, 255, 0.22);
+  border-color: rgba(255, 255, 255, 0.34);
+}
+
+.btn-contact:active {
+  transform: translateY(1px);
+}
+
 @keyframes footerGradient {
   0% {
     background-position: 0% 50%;
