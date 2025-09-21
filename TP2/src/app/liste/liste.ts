@@ -1,17 +1,14 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
-interface Film {
-  id: number;
-  titre: string;
-  affiche: string;
-}
+import { Film } from '../models/film';
 
 @Component({
   selector: 'app-liste',
+  standalone: true,
   imports: [CommonModule],
   templateUrl: './liste.html',
-  styleUrl: './liste.scss',
+  styleUrls: ['./liste.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Liste {
   films: Film[] = [
@@ -51,5 +48,14 @@ export class Liste {
 
   selectionnerFilm(film: Film): void {
     this.filmSelectionne = film;
+  }
+
+  trackByFilmId(index: number, film: Film): number {
+    return film.id;
+  }
+
+  onPosterError(ev: Event): void {
+    const img = ev.target as HTMLImageElement;
+    img.src = 'https://via.placeholder.com/300x450/cccccc/666666?text=Affiche+non+disponible';
   }
 }
