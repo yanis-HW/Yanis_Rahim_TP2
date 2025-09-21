@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ContactDataService, ContactData } from '../services/contact-data.service';
 
@@ -7,11 +7,11 @@ import { ContactDataService, ContactData } from '../services/contact-data.servic
   imports: [CommonModule],
   templateUrl: './gestion.html',
   styleUrl: './gestion.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Gestion implements OnInit {
   contactData: ContactData | null = null;
-
-  constructor(private contactDataService: ContactDataService) {}
+  private readonly contactDataService = inject(ContactDataService);
 
   ngOnInit() {
     this.contactData = this.contactDataService.getLastContactData();
