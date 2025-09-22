@@ -3,8 +3,10 @@
 }
 
 .app-header {
-  position: sticky;
+  position: fixed;
   top: 0;
+  left: 0;
+  width: 100%;
   z-index: 1000;
   backdrop-filter: saturate(140%) blur(8px);
   background: linear-gradient(

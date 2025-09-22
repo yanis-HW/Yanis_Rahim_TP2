@@ -1,0 +1,4 @@
+/* Account for fixed header height */
+main {
+  padding-top: 64px; /* matches .nav-shell height */
+}
