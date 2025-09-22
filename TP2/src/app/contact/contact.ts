@@ -19,7 +19,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Contact implements OnInit {
-  contactForm: FormGroup<ContactFormModel>;
+  public contactForm: FormGroup<ContactFormModel>;
 
   private readonly destroyRef = inject(DestroyRef);
 
@@ -38,7 +38,7 @@ export class Contact implements OnInit {
     });
   }
 
-  ngOnInit() {
+  public ngOnInit() {
     // Observer les changements de la checkbox 'hide'
     this.contactForm
       .get('hide')
@@ -54,28 +54,28 @@ export class Contact implements OnInit {
       });
   }
 
-  get isEmailHidden(): boolean {
+  public get isEmailHidden(): boolean {
     return this.contactForm.controls.hide.value;
   }
 
   // Convenience getters to simplify template access and keep strong typing
-  get prenomCtrl() {
+  public get prenomCtrl() {
     return this.contactForm.controls.prenom;
   }
-  get nomCtrl() {
+  public get nomCtrl() {
     return this.contactForm.controls.nom;
   }
-  get ageCtrl() {
+  public get ageCtrl() {
     return this.contactForm.controls.age;
   }
-  get emailCtrl() {
+  public get emailCtrl() {
     return this.contactForm.controls.email;
   }
-  get commentaireCtrl() {
+  public get commentaireCtrl() {
     return this.contactForm.controls.commentaire;
   }
 
-  onSubmit() {
+  public onSubmit() {
     this.contactForm.markAllAsTouched();
     if (!this.contactForm.valid) return;
 

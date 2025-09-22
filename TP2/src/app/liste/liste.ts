@@ -11,7 +11,7 @@ import { Film } from '../models/film';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Liste {
-  films: Film[] = [
+  public films: Film[] = [
     {
       id: 1,
       titre: 'Inception',
@@ -44,17 +44,17 @@ export class Liste {
     },
   ];
 
-  filmSelectionne: Film | null = null;
+  public filmSelectionne: Film | null = null;
 
-  selectionnerFilm(film: Film): void {
+  public selectionnerFilm(film: Film): void {
     this.filmSelectionne = film;
   }
 
-  trackByFilmId(index: number, film: Film): number {
+  public trackByFilmId(index: number, film: Film): number {
     return film.id;
   }
 
-  onPosterError(ev: Event): void {
+  public onPosterError(ev: Event): void {
     const img = ev.target as HTMLImageElement;
     img.src = 'https://via.placeholder.com/300x450/cccccc/666666?text=Affiche+non+disponible';
   }

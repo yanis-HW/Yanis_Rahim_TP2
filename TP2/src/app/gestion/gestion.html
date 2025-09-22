@@ -3,16 +3,19 @@
     <h2 class="gestion-title">Gestion</h2>
 
     <!-- Affichage des données du formulaire si elles existent -->
-    <div *ngIf="contactData as data; else noData" class="gestion-card">
+    @if (contactData; as data) {
+    <div class="gestion-card">
       <h3 class="gestion-subtitle">Informations du dernier formulaire :</h3>
 
       <div class="gestion-field"><strong>Prénom :</strong> {{ data.prenom }}</div>
 
       <div class="gestion-field"><strong>Nom :</strong> {{ data.nom }}</div>
 
-      <div class="gestion-field" *ngIf="data.age"><strong>Âge :</strong> {{ data.age }}</div>
-
-      <div class="gestion-field" *ngIf="data.email"><strong>Email :</strong> {{ data.email }}</div>
+      @if (data.age) {
+      <div class="gestion-field"><strong>Âge :</strong> {{ data.age }}</div>
+      } @if (data.email) {
+      <div class="gestion-field"><strong>Email :</strong> {{ data.email }}</div>
+      }
 
       <div class="gestion-field">
         <strong>Commentaire :</strong>
@@ -26,13 +29,9 @@
         {{ data.dateSoumission | date : 'dd/MM/yyyy à HH:mm' }}
       </div>
     </div>
-
-    <!-- Message 404 si aucune donnée -->
-    <ng-template #noData>
-      <div class="gestion-empty" role="status" aria-live="polite">
-        <h3>404 - Not Found</h3>
-        <p>Aucun formulaire de contact n'a été envoyé pour le moment.</p>
-      </div>
-    </ng-template>
+    } @else {
+    <!-- État vide s'il n'y a pas encore de données -->
+    <app-not-found></app-not-found>
+    }
   </div>
 </div>

@@ -1,0 +1,50 @@
+.nf-container {
+  min-height: calc(100dvh - 140px);
+  display: grid;
+  place-items: center;
+  gap: 16px;
+  padding: 24px;
+  text-align: center;
+}
+
+.nf-card {
+  background: #fff;
+  border: 1px solid #e9ecef;
+  border-radius: 12px;
+  padding: 24px 28px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+}
+
+.nf-title {
+  font-size: 56px;
+  line-height: 1;
+  margin: 0;
+  color: var(--app-primary, #0d6efd);
+}
+
+.nf-subtitle {
+  margin: 6px 0 8px;
+  font-weight: 600;
+}
+
+.nf-hint {
+  margin: 0 0 14px;
+  color: #6c757d;
+}
+
+.nf-link {
+  display: inline-block;
+  color: #0d6efd;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.nf-link:hover {
+  text-decoration: underline;
+}
+
+.nf-illustration {
+  width: min(280px, 60vw);
+  height: auto;
+  opacity: 0.9;
+}

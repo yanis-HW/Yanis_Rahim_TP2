@@ -3,6 +3,7 @@ import { Accueil } from './accueil/accueil';
 import { Contact } from './contact/contact';
 import { Gestion } from './gestion/gestion';
 import { Liste } from './liste/liste';
+import { NotFound } from './not-found/not-found';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/accueil', pathMatch: 'full' },
@@ -10,5 +11,5 @@ export const routes: Routes = [
   { path: 'contact', component: Contact },
   { path: 'gestion', component: Gestion },
   { path: 'liste', component: Liste },
-  { path: '**', redirectTo: '/accueil' },
+  { path: '**', component: Accueil },
 ];

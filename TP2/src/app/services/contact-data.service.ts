@@ -19,11 +19,11 @@ export class ContactDataService {
 
   constructor() {}
 
-  saveContactData(data: ContactData) {
+  public saveContactData(data: ContactData) {
     this.contactDataSubject.next(data);
   }
 
-  getLastContactData(): ContactData | null {
+  public getLastContactData(): ContactData | null {
     return this.contactDataSubject.value;
   }
 }

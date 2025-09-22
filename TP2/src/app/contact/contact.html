@@ -14,9 +14,9 @@
         [attr.aria-invalid]="prenomCtrl.invalid ? true : null"
         aria-describedby="prenom-error"
       />
-      <div class="invalid-msg" id="prenom-error" *ngIf="prenomCtrl.invalid && prenomCtrl.touched">
-        Le prénom est requis
-      </div>
+      @if (prenomCtrl.invalid && prenomCtrl.touched) {
+      <div class="invalid-msg" id="prenom-error">Le prénom est requis</div>
+      }
     </div>
 
     <!-- Nom -->
@@ -31,9 +31,9 @@
         [attr.aria-invalid]="nomCtrl.invalid ? true : null"
         aria-describedby="nom-error"
       />
-      <div class="invalid-msg" id="nom-error" *ngIf="nomCtrl.invalid && nomCtrl.touched">
-        Le nom est requis
-      </div>
+      @if (nomCtrl.invalid && nomCtrl.touched) {
+      <div class="invalid-msg" id="nom-error">Le nom est requis</div>
+      }
     </div>
 
     <!-- Âge -->
@@ -55,7 +55,8 @@
     </div>
 
     <!-- Email -->
-    <div class="mb-3" *ngIf="!isEmailHidden">
+    @if (!isEmailHidden) {
+    <div class="mb-3">
       <label for="email" class="form-label">Email *</label>
       <input
         type="email"
@@ -68,11 +69,17 @@
         autocomplete="email"
         inputmode="email"
       />
-      <div class="invalid-msg" id="email-error" *ngIf="emailCtrl.invalid && emailCtrl.touched">
-        <span *ngIf="contactForm.get('email')?.errors?.['required']">L'email est requis</span>
-        <span *ngIf="contactForm.get('email')?.errors?.['email']">L'email doit contenir un @</span>
+      @if (emailCtrl.invalid && emailCtrl.touched) {
+      <div class="invalid-msg" id="email-error">
+        @if (contactForm.get('email')?.errors?.['required']) {
+        <span>L'email est requis</span>
+        } @if (contactForm.get('email')?.errors?.['email']) {
+        <span>L'email doit contenir un @</span>
+        }
       </div>
+      }
     </div>
+    }
 
     <!-- Commentaire -->
     <div class="mb-4">
@@ -86,13 +93,9 @@
         [attr.aria-invalid]="commentaireCtrl.invalid ? true : null"
         aria-describedby="commentaire-error"
       ></textarea>
-      <div
-        class="invalid-msg"
-        id="commentaire-error"
-        *ngIf="commentaireCtrl.invalid && commentaireCtrl.touched"
-      >
-        Le commentaire est requis
-      </div>
+      @if (commentaireCtrl.invalid && commentaireCtrl.touched) {
+      <div class="invalid-msg" id="commentaire-error">Le commentaire est requis</div>
+      }
     </div>
 
     <!-- Bouton Envoyer -->

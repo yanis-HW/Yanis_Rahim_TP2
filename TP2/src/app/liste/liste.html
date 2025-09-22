@@ -3,7 +3,8 @@
   <div class="films-liste">
     <h2>Films</h2>
     <ul class="films-links">
-      <li *ngFor="let film of films; trackBy: trackByFilmId">
+      @for (film of films; track trackByFilmId($index, film)) {
+      <li>
         <button
           type="button"
           (click)="selectionnerFilm(film)"
@@ -13,11 +14,13 @@
           {{ film.titre }}
         </button>
       </li>
+      }
     </ul>
   </div>
 
   <!-- Détails du film sélectionné -->
-  <div class="film-details" *ngIf="filmSelectionne as film">
+  @if (filmSelectionne; as film) {
+  <div class="film-details">
     <h3>{{ film.titre }}</h3>
     <div class="film-poster">
       <img
@@ -27,4 +30,5 @@
       />
     </div>
   </div>
+  }
 </div>
