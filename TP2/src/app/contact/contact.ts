@@ -9,6 +9,7 @@ import {
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { ContactDataService, ContactData } from '../services/contact-data.service';
+import { ContactFormModel } from '../models/contact-form.model';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
@@ -93,14 +94,4 @@ export class Contact implements OnInit {
     alert('Le formulaire est valide');
     this.router.navigate(['/accueil']);
   }
-}
-
-// Typed form model
-interface ContactFormModel {
-  prenom: FormControl<string>;
-  nom: FormControl<string>;
-  age: FormControl<number | null>;
-  hide: FormControl<boolean>;
-  email: FormControl<string>;
-  commentaire: FormControl<string>;
 }
