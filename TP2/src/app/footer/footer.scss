@@ -15,6 +15,11 @@
   background-size: 200% 200%;
   animation: footerGradient 22s ease infinite;
   color: #fff;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  z-index: 100;
 }
 
 .footer-shell {
